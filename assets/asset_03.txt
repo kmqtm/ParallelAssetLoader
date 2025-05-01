@@ -1,0 +1,1 @@
+Asset 3 content: This is asset 3.
