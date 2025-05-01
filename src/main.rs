@@ -1,5 +1,4 @@
 mod asset_loader;
-mod game_loop;
 mod utils;
 
 use std::sync::mpsc;
@@ -24,11 +23,13 @@ fn main() {
         asset_loader::load_assets(files_shared, tx_clone);
     });
 
+    // 送信側のクローズ
+    drop(tx);
+
     // メインスレッドで結果を受け取り
     for received in rx {
         println!("Asset Loaded: {}", received);
     }
 
-    // 簡易ゲームループの開始
-    game_loop::start_game_loop();
+    println!("All assets loaded, program exiting.");
 }
