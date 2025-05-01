@@ -1,1 +1,1 @@
-Asset 1 content: Hello from asset 1!
+Asset 01 content: Hello from asset 01!

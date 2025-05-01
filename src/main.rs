@@ -9,9 +9,9 @@ use std::thread;
 fn main() {
     // アセットのファイルパス（模擬データ）
     let files = vec![
-        "assets/asset1.txt",
-        "assets/asset2.txt",
-        "assets/asset3.txt",
+        "assets/asset_01.txt",
+        "assets/asset_02.txt",
+        "assets/asset_03.txt",
     ];
 
     // チャネルを作成

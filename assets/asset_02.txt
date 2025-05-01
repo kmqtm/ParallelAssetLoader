@@ -1,1 +1,1 @@
-Asset 2 content: Sample data for asset 2.
+Asset 02 content: Sample data for asset 02.
