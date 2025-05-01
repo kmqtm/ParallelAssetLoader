@@ -23,7 +23,7 @@ fn main() {
         asset_loader::load_assets(files_shared, tx_clone);
     });
 
-    // 送信側のクローズ
+    // 送信側のクローズ(tx, rxのチャネルを閉じることになる)
     drop(tx);
 
     // メインスレッドで結果を受け取り
