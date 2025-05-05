@@ -14,9 +14,13 @@ fn main() {
 
     println!("--- Sequential ---");
     let time_seq = measure_time(|| load_assets_sequential(&assets));
-    println!("Sequential time: {} ms", time_seq);
-
+    
     println!("\n--- Parallel ---");
     let time_par = measure_time(|| load_assets_parallel(&assets));
-    println!("Parallel time: {} ms", time_par);
+
+    /// 最終結果
+    println!();
+    println!("--- Results ---");
+    println!("Sequential time:  {} ms", time_seq);
+    println!("Parallel time:    {} ms", time_par);
 }
