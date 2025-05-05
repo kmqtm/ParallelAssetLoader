@@ -1,1 +1,0 @@
-Asset 01 content: Hello from asset 01!
