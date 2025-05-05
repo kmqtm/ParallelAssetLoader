@@ -2,6 +2,7 @@ mod asset;
 mod loader;
 mod utils;
 
+use std::io::{self, Write};
 use asset::Asset;
 use loader::{load_assets_sequential, load_assets_parallel};
 use utils::measure_time;
@@ -18,9 +19,14 @@ fn main() {
     println!("\n--- Parallel ---");
     let time_par = measure_time(|| load_assets_parallel(&assets));
 
-    /// 最終結果
+    // 最終結果
     println!();
     println!("--- Results ---");
     println!("Sequential time:  {} ms", time_seq);
     println!("Parallel time:    {} ms", time_par);
+
+    println!();
+    println!("Press Enter to exit...");
+    let mut _input = String::new();
+    io::stdin().read_line(&mut _input).unwrap();
 }
