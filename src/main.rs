@@ -1,35 +1,22 @@
-mod asset_loader;
+mod asset;
+mod loader;
 mod utils;
 
-use std::sync::mpsc;
-use std::sync::{Arc, Mutex};
-use std::thread;
+use asset::Asset;
+use loader::{load_assets_sequential, load_assets_parallel};
+use utils::measure_time;
 
 fn main() {
-    // アセットのファイルパス（模擬データ）
-    let files = vec![
-        "assets/asset_01.txt",
-        "assets/asset_02.txt",
-        "assets/asset_03.txt",
-    ];
+    let asset_count = 50;
 
-    // チャネルを作成
-    let (tx, rx) = mpsc::channel();
+    // アセットのリストを作成
+    let assets: Vec<Asset> = (0..asset_count).map(|id| Asset { id }).collect();
 
-    // アセットローダ用スレッドを生成
-    let files_shared = Arc::new(Mutex::new(files));
-    let tx_clone = tx.clone();
-    thread::spawn(move || {
-        asset_loader::load_assets(files_shared, tx_clone);
-    });
+    println!("--- Sequential ---");
+    let time_seq = measure_time(|| load_assets_sequential(&assets));
+    println!("Sequential time: {} ms", time_seq);
 
-    // 送信側のクローズ(tx, rxのチャネルを閉じることになる)
-    drop(tx);
-
-    // メインスレッドで結果を受け取り
-    for received in rx {
-        println!("Asset Loaded: {}", received);
-    }
-
-    println!("All assets loaded, program exiting.");
+    println!("\n--- Parallel ---");
+    let time_par = measure_time(|| load_assets_parallel(&assets));
+    println!("Parallel time: {} ms", time_par);
 }
